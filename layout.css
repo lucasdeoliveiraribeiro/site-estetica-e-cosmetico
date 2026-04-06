@@ -1,0 +1,1039 @@
+/* ===================================================================
+   layout.css — Kauany Kimberly Estética e Cosmética
+   Organização: variáveis → reset → utilitários → componentes → seções → responsivo
+   =================================================================== */
+
+/* ===== FONTES EXTERNAS ===== */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
+
+/* ===== VARIÁVEIS GLOBAIS ===== */
+:root {
+    /* Paleta de cores */
+    --MAINS-COLOR: #c9956a;
+    --ACCENT:      #e8c4a0;
+    --SOFT:        #f7ede3;
+    --BLACK:       #2a1f1a;
+    --MUTED:       #8a7060;
+    --ERROR:       #c0392b;
+    --SUCCESS:     #27ae60;
+
+    /* Gradientes reutilizáveis */
+    --GRAD-HERO:    linear-gradient(135deg, #fdf6f0 0%, #f5e6d8 30%, #eeddd0 60%, #e8cfc0 100%);
+    --GRAD-HEADER:  linear-gradient(90deg, #fdf8f4 0%, #f9f0e8 50%, #f5e8dc 100%);
+    --GRAD-SECTION: linear-gradient(160deg, #fdf9f6 0%, #f8efe6 50%, #f2e4d6 100%);
+    --GRAD-CARD:    linear-gradient(145deg, #fff8f3 0%, #fdf0e6 100%);
+
+    /* Altura do header fixo */
+    --HEADER-H: 9rem;
+
+    /* Tamanho-base de fonte: 1rem = 10px */
+    font-size: 10px;
+}
+
+/* ===== RESET BÁSICO ===== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+/* Scroll suave e espaço para o header fixo */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--HEADER-H);
+}
+
+body {
+    background: var(--GRAD-HERO);
+    min-height: 100vh;
+    font-family: 'Jost', sans-serif;
+    color: var(--BLACK);
+}
+
+/* Remove estilo padrão de listas (usadas semanticamente com role="list") */
+ul[role="list"] {
+    list-style: none;
+}
+
+/* ===== UTILITÁRIOS DE ACESSIBILIDADE ===== */
+
+/* Texto visível apenas para leitores de tela (WCAG) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Link "pular para o conteúdo" — visível apenas ao receber foco (WCAG 2.4.1) */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    background: var(--MAINS-COLOR);
+    color: #fff;
+    padding: 0.8rem 1.6rem;
+    border-radius: 0 0 0.8rem 0.8rem;
+    font-size: 1.4rem;
+    z-index: 9999;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* ===== HEADER ===== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background: var(--GRAD-HEADER);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201, 149, 106, 0.2);
+    box-shadow: 0 2px 30px rgba(180, 120, 80, 0.08);
+}
+
+/* Wrapper interno com largura máxima */
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: var(--HEADER-H);
+}
+
+/* ===== LOGO ===== */
+.header-logo {
+    height: 7rem;
+    width: auto;
+    display: block;
+}
+
+/* ===== NAVBAR DESKTOP ===== */
+.navbar ul {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.navbar a {
+    display: block;
+    margin: 0 1.5rem;
+    font-size: 1.4rem;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--MUTED);
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid transparent;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: var(--MAINS-COLOR);
+    border-bottom: 2px solid var(--MAINS-COLOR);
+}
+
+/* ===== AÇÕES DO HEADER (busca + hamburguer) ===== */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Botão genérico de ícone (busca) */
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.icon-btn img {
+    width: 3rem;
+    height: 3rem;
+    opacity: 0.5;
+    filter: sepia(0.3);
+}
+
+.icon-btn:hover img,
+.icon-btn:focus img {
+    opacity: 1;
+    transform: scale(1.12);
+}
+
+/* ===== BOTÃO HAMBURGUER (visível apenas em mobile) ===== */
+.hamburger {
+    display: none; /* escondido no desktop */
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 4rem;
+    height: 4rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.hamburger-line {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--MAINS-COLOR);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Animação do hamburguer quando menu está aberto */
+.hamburger[aria-expanded="true"] .hamburger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger[aria-expanded="true"] .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger[aria-expanded="true"] .hamburger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ===== BARRA DE BUSCA (oculta por padrão; JS: funcionalidade 1) ===== */
+.barra-busca {
+    background: var(--SOFT);
+    border-top: 1px solid rgba(201, 149, 106, 0.2);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.barra-busca.aberta {
+    max-height: 30rem;
+    padding: 1.5rem 0 2rem;
+}
+
+.barra-busca-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 3rem;
+}
+
+.barra-busca-inner input[type="search"] {
+    flex: 1;
+    padding: 1.2rem 2rem;
+    font-size: 1.5rem;
+    font-family: 'Jost', sans-serif;
+    border: 1px solid rgba(201, 149, 106, 0.35);
+    border-radius: 1rem;
+    background: #fff;
+    color: var(--BLACK);
+}
+
+.barra-busca-inner input[type="search"]:focus {
+    border-color: var(--MAINS-COLOR);
+    box-shadow: 0 0 0 3px rgba(201, 149, 106, 0.2);
+    outline: 2px solid var(--MAINS-COLOR);
+    outline-offset: 2px;
+}
+
+.busca-btn {
+    padding: 1.2rem 2.5rem;
+    font-size: 1.3rem;
+    white-space: nowrap;
+}
+
+/* Resultados da busca */
+#resultados-busca {
+    max-width: 1200px;
+    margin: 1.5rem auto 0;
+    padding: 0 3rem;
+    font-size: 1.5rem;
+    color: var(--MUTED);
+    min-height: 2rem;
+}
+
+#resultados-busca .resultado-item {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(201, 149, 106, 0.1);
+    color: var(--BLACK);
+    font-weight: 400;
+}
+
+#resultados-busca .resultado-item strong {
+    color: var(--MAINS-COLOR);
+}
+
+#resultados-busca .sem-resultado {
+    color: var(--MUTED);
+    font-style: italic;
+}
+
+/* ===== HERO ===== */
+.homer-container {
+    background: var(--GRAD-HERO);
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Círculos decorativos animados */
+.homer-container::before {
+    content: '';
+    position: absolute;
+    top: -10rem;
+    right: -10rem;
+    width: 55rem;
+    height: 55rem;
+    background: radial-gradient(circle, rgba(232, 196, 160, 0.35) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: floatBall 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.homer-container::after {
+    content: '';
+    position: absolute;
+    bottom: -8rem;
+    left: -8rem;
+    width: 45rem;
+    height: 45rem;
+    background: radial-gradient(circle, rgba(248, 220, 195, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: floatBall 10s ease-in-out infinite reverse;
+    pointer-events: none;
+}
+
+@keyframes floatBall {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50%       { transform: translateY(-20px) scale(1.03); }
+}
+
+/* Layout interno do hero */
+.homer-container-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6rem;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12rem 3rem 6rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== HERO — TEXTO ===== */
+.hero-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3rem;
+}
+
+/* h1 semântico (era h3) */
+.hero-text h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 6rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.15;
+    background: linear-gradient(135deg, #2a1f1a 0%, #8a5a3a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeUp 1s ease both;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== HERO — IMAGEM ===== */
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    animation: fadeUp 1s 0.2s ease both;
+}
+
+.hero-image img {
+    width: 150%;
+    max-width: 60rem;
+    height: 60rem;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+    box-shadow:
+        0 30px 80px rgba(140, 90, 50, 0.22),
+        0 0 0 8px rgba(232, 196, 160, 0.25);
+}
+
+/* ===== BOTÃO PADRÃO ===== */
+.buton {
+    position: relative;
+    padding: 18px 50px;
+    font-size: 1.5rem;
+    font-family: 'Georgia', serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(135deg, #e8c4a0 0%, #d4a57a 40%, #c9956a 70%, #b8845a 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 8px 28px rgba(180, 120, 70, 0.35);
+    text-shadow: 0 1px 3px rgba(100, 60, 20, 0.3);
+}
+
+/* Efeito de brilho ao passar o mouse */
+.buton::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.55) 50%, transparent 100%);
+    transform: skewX(-15deg);
+    transition: left 0.5s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.buton span,
+.buton img { position: relative; z-index: 2; }
+
+.buton:hover::before { left: 160%; }
+
+.buton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(180, 120, 70, 0.45);
+    filter: brightness(1.05);
+}
+
+.buton:active {
+    transform: scale(0.96);
+    box-shadow: 0 5px 15px rgba(180, 120, 70, 0.4);
+}
+
+/* Foco visível para acessibilidade por teclado */
+.buton:focus-visible {
+    outline: 3px solid var(--MAINS-COLOR);
+    outline-offset: 3px;
+}
+
+/* ===== BOTÃO WHATSAPP ===== */
+.buton-whatsapp {
+    margin-top: 1rem;
+    padding: 14px 30px;
+    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    box-shadow: 0 8px 28px rgba(37, 211, 102, 0.35);
+    text-shadow: none;
+    font-size: 1.4rem;
+}
+
+.buton-whatsapp:hover {
+    box-shadow: 0 14px 36px rgba(37, 211, 102, 0.45);
+}
+
+.wpp-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+/* ===== TÍTULO DE SEÇÃO ===== */
+.title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+    font-weight: 300;
+    font-style: italic;
+    text-align: center;
+    background: linear-gradient(135deg, var(--MAINS-COLOR) 0%, #b8784a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+}
+
+/* ===== SEÇÃO MENU / SOBRE ===== */
+.menu {
+    background: var(--GRAD-SECTION);
+    padding: 8rem 3rem;
+    position: relative;
+}
+
+/* Divisor decorativo superior */
+.menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--MAINS-COLOR), var(--ACCENT), transparent);
+}
+
+.menu .row {
+    display: flex;
+    align-items: center;
+    gap: 6rem;
+    max-width: 1200px;
+    margin: 5rem auto 0;
+}
+
+.homer-container-image { flex: 1; }
+
+.homer-container-image img {
+    width: 110%;
+    height: 50rem;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 60px rgba(140, 90, 50, 0.2);
+}
+
+/* Card de conteúdo textual */
+.menu .content {
+    flex: 1;
+    background: var(--GRAD-CARD);
+    padding: 4rem;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(201, 149, 106, 0.15);
+    box-shadow: 0 8px 40px rgba(180, 130, 90, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.menu .content h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.8rem;
+    font-weight: 400;
+    font-style: italic;
+    background: linear-gradient(135deg, #2a1f1a 0%, #8a5a3a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.menu .content p {
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--MUTED);
+    -webkit-text-fill-color: var(--MUTED);
+}
+
+/* ===== SEÇÃO SERVIÇOS ===== */
+.section-servico {
+    background: var(--GRAD-HERO);
+    padding: 9rem 3rem;
+    position: relative;
+}
+
+.section-servico::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--MAINS-COLOR), var(--ACCENT), transparent);
+}
+
+.section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Grid responsivo de cards */
+.servicos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+    gap: 3rem;
+    margin-top: 5rem;
+}
+
+.servico-card {
+    background: var(--GRAD-CARD);
+    border: 1px solid rgba(201, 149, 106, 0.15);
+    border-radius: 1.5rem;
+    padding: 3.5rem 3rem;
+    box-shadow: 0 8px 40px rgba(180, 130, 90, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.servico-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 50px rgba(180, 130, 90, 0.15);
+}
+
+/* Destaque do card quando é resultado de busca */
+.servico-card.destaque-busca {
+    border-color: var(--MAINS-COLOR);
+    box-shadow: 0 0 0 3px rgba(201, 149, 106, 0.3), 0 16px 50px rgba(180, 130, 90, 0.15);
+}
+
+.servico-icon {
+    font-size: 2.4rem;
+    color: var(--MAINS-COLOR);
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.servico-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--BLACK);
+    margin-bottom: 1rem;
+}
+
+.servico-card p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--MUTED);
+}
+
+/* ===== SEÇÃO ENDEREÇO ===== */
+.section-endereco {
+    background: var(--GRAD-SECTION);
+    padding: 9rem 3rem;
+    position: relative;
+}
+
+.section-endereco::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--MAINS-COLOR), var(--ACCENT), transparent);
+}
+
+.endereco-wrap {
+    display: flex;
+    gap: 6rem;
+    align-items: flex-start;
+    margin-top: 5rem;
+}
+
+/* <address> estilizado */
+.endereco-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    font-style: normal; /* remove itálico padrão do <address> */
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(201, 149, 106, 0.15);
+}
+
+.info-label {
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--MAINS-COLOR);
+    font-weight: 500;
+}
+
+.info-valor {
+    font-size: 1.7rem;
+    font-weight: 300;
+    color: var(--BLACK);
+}
+
+/* Link de telefone */
+.info-valor a {
+    color: var(--BLACK);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.info-valor a:hover {
+    color: var(--MAINS-COLOR);
+}
+
+.mapa-placeholder {
+    flex: 1;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(140, 90, 50, 0.15);
+}
+
+/* ===== SEÇÃO AGENDAMENTO — FORMULÁRIO ===== */
+.section-agendamento {
+    background: var(--GRAD-HERO);
+    padding: 9rem 3rem;
+    position: relative;
+}
+
+.section-agendamento::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--MAINS-COLOR), var(--ACCENT), transparent);
+}
+
+.section-desc {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--MUTED);
+    margin-bottom: 4rem;
+}
+
+/* Formulário */
+.form-agendamento {
+    background: var(--GRAD-CARD);
+    border: 1px solid rgba(201, 149, 106, 0.15);
+    border-radius: 2rem;
+    padding: 4rem;
+    box-shadow: 0 8px 40px rgba(180, 130, 90, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-top: 4rem;
+}
+
+/* Linha do formulário com dois campos lado a lado */
+.form-row {
+    display: flex;
+    gap: 2.5rem;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+/* Grupo que ocupa largura total */
+.form-group--full {
+    width: 100%;
+    flex: unset;
+}
+
+/* Labels */
+.form-group label {
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--MAINS-COLOR);
+}
+
+/* Campos de entrada */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 1.3rem 1.8rem;
+    font-size: 1.5rem;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    color: var(--BLACK);
+    background: #fff;
+    border: 1px solid rgba(201, 149, 106, 0.3);
+    border-radius: 1rem;
+    width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: auto;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--MAINS-COLOR);
+    box-shadow: 0 0 0 3px rgba(201, 149, 106, 0.2);
+    outline: 2px solid var(--MAINS-COLOR);
+    outline-offset: 2px;
+}
+
+/* Campo com erro */
+.form-group input.campo-erro,
+.form-group select.campo-erro,
+.form-group textarea.campo-erro {
+    border-color: var(--ERROR);
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.1);
+}
+
+/* Mensagem de erro inline */
+.form-erro {
+    font-size: 1.2rem;
+    color: var(--ERROR);
+    font-weight: 400;
+    min-height: 1.6rem;
+    display: block;
+}
+
+/* Dica (hint) abaixo do campo */
+.form-dica {
+    font-size: 1.2rem;
+    color: var(--MUTED);
+    display: block;
+}
+
+/* Marcador de campo obrigatório */
+.obrigatorio {
+    color: var(--MAINS-COLOR);
+    font-weight: 700;
+}
+
+/* Rodapé do formulário */
+.form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.campos-obrigatorios {
+    font-size: 1.2rem;
+    color: var(--MUTED);
+}
+
+/* Mensagem de sucesso (visível após envio) */
+.form-sucesso {
+    background: rgba(39, 174, 96, 0.1);
+    border: 1px solid var(--SUCCESS);
+    color: var(--SUCCESS);
+    border-radius: 1rem;
+    padding: 2rem;
+    font-size: 1.5rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* ===== SEÇÃO INFORMAÇÕES ===== */
+.section-informacao {
+    background: var(--GRAD-SECTION);
+    padding: 9rem 3rem;
+    position: relative;
+}
+
+.section-informacao::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--MAINS-COLOR), var(--ACCENT), transparent);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+    gap: 3rem;
+    margin-top: 5rem;
+}
+
+.info-card {
+    background: var(--GRAD-CARD);
+    border: 1px solid rgba(201, 149, 106, 0.15);
+    border-radius: 1.5rem;
+    padding: 3.5rem 3rem;
+    box-shadow: 0 8px 40px rgba(180, 130, 90, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 45px rgba(180, 130, 90, 0.14);
+}
+
+.info-card-icon {
+    display: block;
+    font-size: 2.2rem;
+    color: var(--MAINS-COLOR);
+    margin-bottom: 1.5rem;
+}
+
+.info-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--BLACK);
+    margin-bottom: 1rem;
+}
+
+.info-card p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--MUTED);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background: var(--GRAD-HEADER);
+    border-top: 1px solid rgba(201, 149, 106, 0.2);
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.3rem;
+    color: var(--MUTED);
+    letter-spacing: 0.05em;
+}
+
+/* ===== RESPONSIVO — TABLET (≤ 900px) ===== */
+@media (max-width: 900px) {
+
+    /* Hero: empilhado verticalmente */
+    .homer-container-inner {
+        flex-direction: column;
+        text-align: center;
+        padding: 12rem 2rem 6rem;
+        gap: 4rem;
+    }
+
+    .hero-text {
+        align-items: center;
+    }
+
+    .hero-text h1 {
+        font-size: 4.5rem;
+    }
+
+    .hero-image img {
+        height: 40rem;
+        border-radius: 2rem;
+    }
+
+    /* Menu e endereço: empilhados */
+    .menu .row,
+    .endereco-wrap {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    /* Navbar: escondida no tablet também — exibida pelo hamburguer */
+    .navbar {
+        display: none;
+        position: absolute;
+        top: var(--HEADER-H);
+        left: 0;
+        right: 0;
+        background: var(--SOFT);
+        border-bottom: 1px solid rgba(201, 149, 106, 0.2);
+        padding: 2rem 3rem;
+        z-index: 98;
+    }
+
+    .navbar.aberta {
+        display: block;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .navbar a {
+        display: block;
+        padding: 1.2rem 0;
+        font-size: 1.6rem;
+        margin: 0;
+        border-bottom: 1px solid rgba(201, 149, 106, 0.1);
+    }
+
+    /* Exibe o hamburguer */
+    .hamburger {
+        display: flex;
+    }
+
+    /* Formulário: campos em coluna */
+    .form-row {
+        flex-direction: column;
+    }
+}
+
+/* ===== RESPONSIVO — MOBILE (≤ 480px) ===== */
+@media (max-width: 480px) {
+
+    .hero-text h1 {
+        font-size: 3.6rem;
+    }
+
+    .title {
+        font-size: 3.5rem;
+    }
+
+    .header-inner {
+        padding: 1.5rem 2rem;
+    }
+
+    .form-agendamento {
+        padding: 3rem 2rem;
+    }
+
+    .form-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .barra-busca-inner {
+        flex-direction: column;
+        padding: 0 2rem;
+        gap: 1rem;
+    }
+
+    .busca-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
