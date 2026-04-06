@@ -12,7 +12,7 @@ Funcionalidades Interativas (JavaScript puro)
 | # | Funcionalidade | Descrição |
 |---|---|---|
 | 1 | **Busca de serviços** | Barra de busca que filtra e destaca os cards de serviço em tempo real, com normalização de acentos e navegação por teclado |
-| 2 | **Menu hamburguer (mobile)** | Botão que abre/fecha a navegação em dispositivos móveis, com animação CSS e controle de foco |
+| 2 | **Menu (mobile)** | Botão que abre/fecha a navegação em dispositivos móveis, com animação CSS e controle de foco |
 | 3 | **Validação de formulário** | Validação inline com mensagens de erro acessíveis, máscara de telefone e simulação de envio |
 | 4 | **Link ativo na navbar** | Intersection Observer que destaca o item do menu correspondente à seção visível |
 | 5 | **Animação scroll reveal** | Cards revelados com fade + slide ao entrar no viewport (Intersection Observer) |
