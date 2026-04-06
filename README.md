@@ -56,7 +56,3 @@ Estrutura de Arquivos
 ├── skin treatment.jpg # Foto da seção sobre
 └── README.md          # Este arquivo
 ```
-
-
-
-Trabalho desenvolvido para a disciplina de Programação Front-End — ADS 3º período.
